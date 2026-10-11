@@ -44,7 +44,7 @@ Restart Claude Code. The skill shows up as `/transcribe` and also triggers on na
 ```bash
 uv run transcribe.py interview.mp4 --mode md,srt --lang tr
 uv run transcribe.py ./footage --mode srt --tc-start 01:00:00:00 --fps 25 --out ./subs
-uv run transcribe.py talk.m4a --model large --prompt "Regenerative Stories"
+uv run transcribe.py talk.m4a --model large --prompt "Ada Lovelace, Kadıköy"
 ```
 
 | Flag | Default | |
