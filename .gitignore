@@ -3,3 +3,4 @@ __pycache__/
 *.srt
 *.vtt
 *.timed.txt
+.env

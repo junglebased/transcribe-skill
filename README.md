@@ -58,7 +58,31 @@ uv run transcribe.py talk.m4a --model large --prompt "Ada Lovelace, Kadıköy"
 | `--max-chars` | 42 | subtitle characters per line |
 | `--force` | off | redo files that already have output |
 
+## Meeting mode (Google Meet / Zoom → Notion)
+
+Free Transkriptor-style meeting notes without a bot in the call. `meeting/meeting.py` records
+system audio (others) and microphone (me) on your Mac via ScreenCaptureKit (macOS 15+, no BlackHole),
+transcribes both channels locally, and writes a transcript labelled **Me / Others**.
+
+```bash
+uv run meeting/meeting.py start --title "Weekly sync"   # platform auto-detected (Zoom) or --platform meet
+uv run meeting/meeting.py stop --lang en
+```
+
+Output: `~/Meetings/<YYYYMMDD-HHMM>/recording.m4a`, `transcript.md`, `transcript.json`, `meta.json`.
+First run compiles a small Swift helper and macOS asks for Screen & System Audio Recording permission.
+
+Notion: inside Claude Code the skill writes the summary and action items and creates a page in your
+Meetings database through the Notion MCP. Without Claude, copy `.env.example` to `.env`, set
+`NOTION_TOKEN` and `NOTION_DB_ID`, then `uv run meeting/meeting.py publish <DIR> --summary-file summary.json`.
+Database properties: Title, Date, Platform, Participants, Duration (min), Summary, Action items, Recording.
+
+Why no bot: see [docs/SPEC-meeting-bot.md](docs/SPEC-meeting-bot.md) (self-hosted bots need Docker,
+a Zoom Marketplace app and host admission; hosted APIs are paid).
+
 ## Roadmap
+
+- Optional self-hosted bot (Attendee) for meetings you don't attend
 
 - Speaker labels (diarization) without a gated model token
 - Optional DOCX export
